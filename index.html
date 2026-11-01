@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>コスメ相性ノート</title>
+  <meta name="description" content="口コミの評価から、化粧品の人気ランキングと肌質・組み合わせの相性をチェックできるサイト">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">COSME MATCH NOTE</p>
+    <h1>コスメ相性ノート</h1>
+    <p class="lead">口コミから、人気と「わたしの肌との相性」を。</p>
+  </header>
+
+  <nav class="tabs" aria-label="メニュー">
+    <button class="tab on" data-tab="rank">ランキング</button>
+    <button class="tab" data-tab="skin">肌質別</button>
+    <button class="tab" data-tab="pair">併用チェック</button>
+    <button class="tab" data-tab="post">口コミ投稿</button>
+  </nav>
+
+  <main>
+    <div id="modeBanner" class="banner"></div>
+    <div id="loading" class="loading" hidden></div>
+
+    <section id="panel-rank" class="panel">
+      <h2 class="sec">人気ランキング</h2>
+      <p class="desc">レビューの平均評価と件数から算出したスコア順です。件数が少ない商品は全体平均に寄せて補正しています。</p>
+      <div id="catChips" class="chips"></div>
+      <ol id="rankList" class="list"></ol>
+    </section>
+
+    <section id="panel-skin" class="panel" hidden>
+      <h2 class="sec">肌質別ランキング</h2>
+      <p class="desc">同じ肌質の人の口コミだけで集計した評価です。</p>
+      <div id="skinChips" class="chips"></div>
+      <ol id="skinList" class="list"></ol>
+    </section>
+
+    <section id="panel-pair" class="panel" hidden>
+      <h2 class="sec">併用チェック</h2>
+      <p class="desc">2つのアイテムを一緒に使ったときの口コミ評価と、成分の組み合わせメモを確認できます。</p>
+      <div class="pair-pick">
+        <select id="pairA" aria-label="1つ目のアイテム"></select>
+        <button id="swap" class="swap" type="button" aria-label="入れ替え">⇅</button>
+        <select id="pairB" aria-label="2つ目のアイテム"></select>
+      </div>
+      <div id="pairResult"></div>
+    </section>
+
+    <section id="panel-post" class="panel" hidden>
+      <h2 class="sec">口コミを投稿</h2>
+      <p class="desc">肌質と評価を投稿すると、肌質別ランキングと併用チェックに反映されます。</p>
+      <form id="postForm" class="card form">
+        <label>商品<select name="product" id="postProduct" required></select></label>
+        <label>あなたの肌質<select name="skin" id="postSkin"></select></label>
+        <fieldset class="rating">
+          <legend>評価</legend>
+          <div class="star-input">
+            <input type="radio" name="rating" id="r5" value="5"><label for="r5">★</label>
+            <input type="radio" name="rating" id="r4" value="4"><label for="r4">★</label>
+            <input type="radio" name="rating" id="r3" value="3"><label for="r3">★</label>
+            <input type="radio" name="rating" id="r2" value="2"><label for="r2">★</label>
+            <input type="radio" name="rating" id="r1" value="1"><label for="r1">★</label>
+          </div>
+        </fieldset>
+        <label>一緒に使ったアイテム（任意）<select name="pair" id="postPair"></select></label>
+        <label>組み合わせの評価（任意）
+          <select name="pairRating">
+            <option value="">選択しない</option>
+            <option value="5">★★★★★ とても良い</option>
+            <option value="4">★★★★ 良い</option>
+            <option value="3">★★★ ふつう</option>
+            <option value="2">★★ いまいち</option>
+            <option value="1">★ 合わなかった</option>
+          </select>
+        </label>
+        <button class="btn" type="submit">投稿する</button>
+        <p id="postMsg" class="msg" role="status"></p>
+        <p class="fine">※プロトタイプでは、投稿はこの端末のブラウザにのみ保存されます。</p>
+      </form>
+      <h3 class="sub">あなたの投稿</h3>
+      <ul id="myPosts" class="myposts"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>評価は購入者・利用者の個人の感想であり、効果・効能を保証するものではありません。肌に異常が出た場合は使用を中止し、専門医にご相談ください。</p>
+    <p class="credit"><a href="https://developers.rakuten.com/" target="_blank" rel="noopener">Supported by Rakuten Developers</a></p>
+  </footer>
+
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-bg" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true">
+      <button class="sheet-close" data-close aria-label="閉じる">×</button>
+      <div id="sheetBody"></div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
